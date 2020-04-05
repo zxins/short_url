@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content%}
+<div id="main">
+    <div id="form">
+        <form action="{{ url_for('short_bp.shorten') }}" method="post">
+            <input id="url" type="text" name="url" autofocus="autofocus" required="required"
+                   placeholder="Paste your long URL here">
+            <input id="submit" type="submit" value="Shorten" class="pointer">
+            <div id="msg" class="hidden"></div>
+        </form>
+    </div>
+    <div id="result" style="visibility: hidden;">
+        <div><input type="url" name="shorten-url" value="" id="shorten"></div>
+    </div>
+</div>
+{% endblock %}

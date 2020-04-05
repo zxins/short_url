@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div id="main">
+
+  <div id="shorten-page">
+    <div id="result">
+      <div><input type="url" name="shorten-url" value="{{ url }}" id="shorten" autofocus="autofocus"></div>
+      <div id="qrcode">{{ qr_table|safe }}</div>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}
