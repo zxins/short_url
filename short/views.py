@@ -2,7 +2,7 @@
 
 from flask import Blueprint, render_template, request, abort, jsonify, redirect
 from .utils import add_scheme, qrcode_table
-from .models import Urls
+from .models import URLModel
 
 bp = Blueprint('short_bp', __name__)
 
@@ -25,11 +25,11 @@ def shorten():
     url = add_scheme(url)
 
     # 判断是否已存在相应的数据
-    exists = Urls.exist_expand(url)
-    if exists:
+    exists = URLModel.exist_expand(url)
+    if URLModel.exist_expand(url):
         shorten = exists.shorten
     else:
-        shorten = Urls.add_url(url).shorten
+     shorten = URLModel.add_url(url).shorten
 
     base_url = request.base_url.rsplit('/', 1)[0]
     shorten = base_url + '/' + shorten
@@ -48,7 +48,7 @@ def shorten():
 
 @bp.route('/<re("[a-zA-Z0-9]{5,}"):shorten>', methods=['GET'])
 def expand(shorten):
-    shorten = Urls.get_expand(shorten)
+    shorten = URLModel.get_expand(shorten)
     if not shorten:
         abort(404)
     return redirect(shorten.expand)
@@ -65,7 +65,7 @@ def expand_api():
             abort(400)
 
     shorten = param.strip().strip('/').rsplit('/', 1)[-1]
-    shorten = Urls.get_expand(shorten)
+    shorten = URLModel.get_expand(shorten)
     if not shorten:
         return jsonify({'error_code': 404, 'error_msg': 'shorten is not found'})
 
