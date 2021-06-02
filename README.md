@@ -8,7 +8,7 @@ pip install -r requirements.txt
 
 2. 运行
 ```shell script
-python manage.py
+python run.py
 ```
 
 ## Usage
